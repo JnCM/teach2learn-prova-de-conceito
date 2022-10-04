@@ -5,6 +5,7 @@ import { ScrollView } from 'react-native-gesture-handler';
 
 import AlunoRow from './AlunoRow';
 import api from '../../api';
+import styles from './styles';
 
 export default function ListaAluno({ route, navigation }) {
     
@@ -16,7 +17,6 @@ export default function ListaAluno({ route, navigation }) {
 
     return (
         <View style={styles.container}>
-            <StatusBar style="auto"/>
             <Text style={styles.title}>Alunos cadastrados</Text>
             <ScrollView style={styles.scrollContainer} contentContainerStyle={styles.itemsContainer}>
                 {alunos.map(aluno => {
@@ -26,35 +26,7 @@ export default function ListaAluno({ route, navigation }) {
                     />
                 })}
             </ScrollView>
+            <StatusBar style="auto"/>
         </View>
     );
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#CCE5FF',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    title: {
-        color: '#000000',
-        fontSize: 20,
-        fontWeight: 'bold',
-        marginTop: 50,
-        marginBottom: 20
-    },
-    scrollContainer: {
-        flex: 1,
-        width: '90%'
-    },
-    itemsContainer: {
-        flexGrow: 1,
-        marginTop: 10,
-        padding: 20,
-        borderTopLeftRadius: 10,
-        borderTopRightRadius: 10,
-        alignItems: 'stretch',
-        backgroundColor: '#fff'
-    },
-});

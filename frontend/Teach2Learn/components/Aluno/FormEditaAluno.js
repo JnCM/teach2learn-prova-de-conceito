@@ -5,6 +5,7 @@ import { Feather as Icon, MaterialIcons } from '@expo/vector-icons';
 
 import utils from '../../utils';
 import api from '../../api';
+import styles from './styles';
 
 export default function FormEditaAluno({ route, navigation }) {
     
@@ -106,81 +107,3 @@ export default function FormEditaAluno({ route, navigation }) {
         </View>
     );
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#CCE5FF',
-        alignItems: 'center',
-    },
-    title: {
-        color: '#000000',
-        fontSize: 20,
-        fontWeight: 'bold',
-        marginTop: 50,
-    },
-    inputContainer: {
-        flex: 1,
-        marginTop: 30,
-        width: '90%',
-        padding: 20,
-        borderTopLeftRadius: 10,
-        borderTopRightRadius: 10,
-        alignItems: 'stretch',
-        backgroundColor: '#fff',
-    },
-    input: {
-        marginTop: 10,
-        height: 60,
-        backgroundColor: '#fff',
-        borderWidth: 1,
-        borderColor: '#CCE5FF',
-        borderRadius: 10,
-        paddingHorizontal: 24,
-        fontSize: 16,
-        alignItems: 'stretch',
-    },
-    button: {
-        marginTop: 25,
-        height: 60,
-        backgroundColor: 'blue',
-        borderRadius: 10,
-        paddingHorizontal: 24,
-        fontSize: 16,
-        alignItems: 'center',
-        justifyContent: 'center',
-        elevation: 20,
-        shadowOpacity: 20,
-        shadowColor: '#ccc',
-    },
-    buttonText: {
-        color: '#fff',
-        fontWeight: 'bold',
-        marginLeft: 10,
-        fontSize: 18,
-    },
-    buttonClear: {
-        marginTop: 10,
-        height: 60,
-        backgroundColor: 'white',
-        borderWidth: 1,
-        borderColor: 'blue',
-        borderRadius: 10,
-        paddingHorizontal: 24,
-        fontSize: 16,
-        alignItems: 'center',
-        justifyContent: 'center',
-        elevation: 20,
-        shadowOpacity: 20,
-        shadowColor: '#ccc',
-    },
-    buttonTextClear: {
-        color: 'blue',
-        fontWeight: 'bold',
-        marginLeft: 10,
-        fontSize: 18,
-    },
-    buttonContainer: {
-        flexDirection: "row"
-    },
-});
