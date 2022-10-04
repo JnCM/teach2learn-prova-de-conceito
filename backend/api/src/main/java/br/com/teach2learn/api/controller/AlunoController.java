@@ -40,7 +40,7 @@ public class AlunoController {
 
     @PutMapping
     public Aluno updateAluno(@RequestBody Aluno novoAluno){
-        Aluno aluno = alunoDAO.getReferenceById(novoAluno.getId());
+        Aluno aluno = alunoDAO.findById(novoAluno.getId()).get();
         aluno = novoAluno;
         return alunoDAO.save(aluno);
     }
