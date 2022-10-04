@@ -38,9 +38,6 @@ CREATE TABLE `aluno` (
 -- Extraindo dados da tabela `aluno`
 --
 
-INSERT INTO `aluno` (`id`, `nome`, `matricula`) VALUES
-(1, 'Josué Nunes Campos', 3465);
-
 --
 -- Indexes for dumped tables
 --
