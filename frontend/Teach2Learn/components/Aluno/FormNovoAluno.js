@@ -1,19 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, Alert, Keyboard } from 'react-native';
 import { Feather as Icon, MaterialIcons } from '@expo/vector-icons';
-import axios from 'axios';
 
-export default function FormAluno({ route, navigation }) {
-    const id = route.params ? route.params.id : 0;
+import utils from '../../utils';
+import api from '../../api';
+
+export default function FormNovoAluno({ route, navigation }) {
+
     const [matricula, setMatricula] = useState('');
     const [nomeCompleto, setNomeCompleto] = useState('');
-
-    useEffect(() => {
-        if(!route.params) return;
-        setMatricula(route.params.matricula.toString());
-        setNomeCompleto(route.params.nome);
-    }, [route]);
 
     function changeMatricula(novaMatricula) {
         setMatricula(novaMatricula);
@@ -38,56 +34,28 @@ export default function FormAluno({ route, navigation }) {
                     limpaCampos();
                     navigation.reset({
                         index: 0,
-                        routes: [{name: "Lista de alunos"}]
+                        routes: [{name: "ListaAlunos"}]
                     });
-                    navigation.navigate("Lista de alunos", aluno);
                 },
                 style: "OK"
             }]
         );
     }
 
-    function validaCampos(){
-        if(matricula === "" || nomeCompleto === "")
-            return false;
-        return true;
-    }
-
     async function salvaAluno(){
-        if(validaCampos()){
+        if(utils.validaCampos(matricula, nomeCompleto)){
             Keyboard.dismiss();
-            if(id != 0){
-                const data = {'id': id, 'matricula': parseInt(matricula), 'nome': nomeCompleto};
-                await axios.put(
-                    `http://192.168.1.6:8080/alunos`,
-                    data
-                ).then(function (response){
-                    const aluno = response.data;
-                    showResult(aluno);
-                }).catch(function (error){
-                    alert(error.message);
-                });
-            }else{
-                const data = {'matricula': parseInt(matricula), 'nome': nomeCompleto};
-                await axios.post(
-                    "http://192.168.1.6:8080/alunos",
-                    data
-                ).then(function (response){
-                    const aluno = response.data;
-                    showResult(aluno);
-                }).catch(function (error){
-                    alert(error.message);
-                });
-            }
+            const data = {'matricula': parseInt(matricula), 'nome': nomeCompleto};
+            await api.alunoservice.salvarAluno(data).then((aluno) => {
+                showResult(aluno);
+                // navigation.navigate("ListaAlunos", aluno);
+            }).catch((error)=>{
+                alert(error.message);
+            });
         } else {
             Alert.alert(
-                "Atenção!",
-                "Preencha todos os campos.",
-                [{
-                    text: "OK",
-                    onPress: ()=>{},
-                    style: "OK"
-                }]
+                "Atenção!", "Preencha todos os campos.",
+                [{ text: "OK", onPress: ()=>{}, style: "OK"}]
             );
         }
     }

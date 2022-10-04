@@ -1,33 +1,14 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Alert } from 'react-native';
 import { Feather as Icon } from '@expo/vector-icons';
-import axios from 'axios';
 
-export default function ListaItem(props){
+import api from '../../api';
 
-    async function getAluno(id){
-        try {
-            const response = await axios.get(`http://192.168.1.6:8080/alunos/${id}`);
-            return response.data;
-        } catch (error) {
-            alert(error.message);
-            return undefined;
-        }
-    }
-
-    async function deletaAluno(id){
-        try {
-            const response = await axios.delete(`http://192.168.1.6:8080/alunos/${id}`);
-            return true;
-        } catch (error) {
-            alert(error.message);
-            return false;
-        }
-    }
+export default function AlunoRow(props){
 
     async function editaAluno(){
-        await getAluno(props.id).then(
-            aluno => props.navigation.navigate("Novo aluno", aluno)
+        await api.alunoservice.getAluno(props.id).then(
+            aluno => props.navigation.navigate("EditaAluno", aluno)
         );
     }
 
@@ -36,15 +17,11 @@ export default function ListaItem(props){
             "Atenção!",
             "Você tem certeza que deseja excluir este aluno?",
             [
-                {
-                text: "Não",
-                onPress: () => {},
-                style: "cancel"
-                },
+                { text: "Não", onPress: () => {}, style: "cancel" },
                 {
                     text: "Sim",
-                    onPress: async () => await deletaAluno(props.id).then(
-                        response => props.navigation.navigate("Lista de alunos", {id: props.id})
+                    onPress: async () => await api.alunoservice.deletarAluno(props.id).then(
+                        response => props.navigation.navigate("ListaAlunos", {id: props.id})
                     )
                 }
             ],
@@ -64,7 +41,7 @@ export default function ListaItem(props){
             </TouchableOpacity> 
           </View>
         </View>
-      );
+    );
 }
 
 const styles = StyleSheet.create({

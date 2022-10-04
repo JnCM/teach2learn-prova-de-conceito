@@ -3,8 +3,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Feather as Icon } from '@expo/vector-icons';
 
-import ListaAluno from './ListaAluno';
-import FormAluno from './FormAluno';
+import components from '../components';
 
 const { Navigator, Screen } = createBottomTabNavigator();
 
@@ -23,21 +22,30 @@ function Tab() {
                     tabBarInactiveBackgroundColor: "#FAFAFC",
                     tabBarLabelStyle: { fontSize: 15 }
                 }}
+                initialRouteName={"ListaAlunos"}
             >
-                <Screen name="Lista de alunos" component={ListaAluno}
+                <Screen name="ListaAlunos" component={components.Aluno.ListaAluno}
                     options={{
+                        title: "Lista de alunos",
                         tabBarLabel: "Alunos",
                         tabBarIcon: ({ focused,color,size }) => (  
                             <Icon name="users" color={color} size={25}/>  
                         )  
                     }}
                 />
-                <Screen name="Novo aluno" component={FormAluno}
+                <Screen name="NovoAluno" component={components.Aluno.FormNovoAluno}
                     options={{
+                        title: "Novo aluno",
                         tabBarLabel: "Novo aluno",
                         tabBarIcon: ({ focused,color,size }) => (  
                             <Icon name="user-plus" color={color} size={25}/>  
-                        ),
+                        )
+                    }}
+                />
+                <Screen name="EditaAluno" component={components.Aluno.FormEditaAluno}
+                    options={{
+                        title: "Editar aluno",
+                        tabBarButton: () => null
                     }}
                 />
             </Navigator>

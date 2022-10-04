@@ -1,25 +1,17 @@
-import axios from 'axios';
 import { StatusBar } from 'expo-status-bar';
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
-import ListaItem from './ListaItem';
+
+import AlunoRow from './AlunoRow';
+import api from '../../api';
 
 export default function ListaAluno({ route, navigation }) {
+    
     const [alunos, setAlunos] = useState([]);
 
-    async function getAlunos(){
-        try {
-            const response = await axios.get("http://192.168.1.6:8080/alunos");
-            return response.data;
-        } catch (error) {
-            alert(error.message);
-            return [];
-        }
-    }
-
     useEffect(() => {
-        getAlunos().then(alunos => setAlunos(alunos));
+        api.alunoservice.getAlunos().then(alunos => setAlunos(alunos));
     }, [route]);
 
     return (
@@ -27,16 +19,12 @@ export default function ListaAluno({ route, navigation }) {
             <StatusBar style="auto"/>
             <Text style={styles.title}>Alunos cadastrados</Text>
             <ScrollView style={styles.scrollContainer} contentContainerStyle={styles.itemsContainer}>
-                {
-                    alunos.map(aluno => {
-                        return <ListaItem
-                                    key={aluno.id}
-                                    id={aluno.id}
-                                    aluno={aluno.matricula + ' - ' + aluno.nome}
-                                    navigation={navigation}
-                                />
-                    })
-                }
+                {alunos.map(aluno => {
+                    return <AlunoRow key={aluno.id} id={aluno.id}
+                        aluno={aluno.matricula + ' - ' + aluno.nome}
+                        navigation={navigation}
+                    />
+                })}
             </ScrollView>
         </View>
     );

@@ -10,6 +10,14 @@ npm-debug.*
 *.orig.*
 web-build/
 yarn.lock
+package-lock.json
+npm-debug.log
+yarn-error.log
+.idea
+.gradle
+local.properties
+*.iml
+.env
 
 # macOS
 .DS_Store
