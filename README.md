@@ -10,7 +10,11 @@ spring.datasource.username=<usuario>
 spring.datasource.password=<senha>
 ```
 
-Em que os termos com `<>` devem ser substituídos por suas credenciais.
+Em que os termos com `<>` devem ser substituídos por suas credenciais. Já no arquivo `application.properties`, a variável que recebe a versão do MySQL utilizado pode ser alterada de acordo com a versão que você estiver utilizando ou pode ser colocada a versão padrão, de acordo com este [link](https://www.javatpoint.com/dialects-in-hibernate). No arquivo do repositório a versão está em 5.7.
+
+```properties
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL57Dialect
+```
 
 Para executar o backend, basta entrar na pasta `backend/api` pelo terminal e digitar:
 
@@ -35,7 +39,15 @@ java -jar target/api-0.0.1-Teach2Learn.jar
 E com isso você terá a API sendo executada como se o seu computador fosse o servidor.
 
 ## Executando o frontend
-Já no frontend, na execução dos arquitetos foi utilizado o `yarn`, logo os exemplos serão com este gerenciador. Para executar o projeto basta digitar o comando de acordo com a plataforma requerida. Por exemplo, para simular o projeto no android:
+Já no frontend, na execução dos arquitetos foi utilizado o `yarn`, logo os exemplos serão com este gerenciador. Antes de mais nada é necessário criar na pasta raiz do projeto backend o arquivo `.env`, contendo as seguintes variáveis:
+
+```env
+REACT_APP_DEV_API_URL=<API_Endpoint>
+REACT_APP_TEST_API_URL=<API_Endpoint>
+REACT_APP_PROD_API_URL=<API_Endpoint>
+```
+
+Substitua `<API_Endpoint>` pelo endpoint da API que é executada pelo backend. Após isso, para executar o projeto basta digitar o comando de acordo com a plataforma requerida. Por exemplo, para simular o projeto no android:
 
 ```bash
 yarn android
